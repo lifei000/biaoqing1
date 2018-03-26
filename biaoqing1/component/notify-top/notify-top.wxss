@@ -1,0 +1,38 @@
+@import 'iconfont.wxss';
+.notify {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  transition: transform .3s ease-in-out,height .3s ease-in-out;
+  box-sizing: border-box;
+  background-color: #fffbe6;
+}
+.icon {margin-top: -8px;}
+.iconfont {
+  color: #888;
+}
+.img {margin: 0 10px;}
+.img image {
+  padding: 6px 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.notif {
+  padding: 6px 0;
+  font-size: 14px;
+  color: #888;
+}
+.btn {
+  margin-left: 5px;
+  border: 1px solid #1aad19;
+  color: #1aad19;
+  font-size: 12px;
+  padding: 0 5px;
+  background-color: #fff;
+  height: 25px;
+  line-height: 25px;
+  border-radius: 5px;
+  white-space:nowrap;
+}

@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "formid-custom": "../../component/formid-custom/formid-custom"
+  }
+}

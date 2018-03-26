@@ -1,0 +1,101 @@
+<!--pages/index/index.wxml-->
+<view class='index-body'>
+  <view class='index-search'>
+    <image src='../../imgs/head.png' mode='bottom'></image>
+     <view class='search-box' hidden='{{!backFlag}}'>
+      <input type='text' value='{{searchFont}}' placeholder='输入关键词，自动匹配表情包' bindinput="changeSearch" class='search-input' placeholder-class="input-placeholder" maxlength="20"></input>
+      <formid-custom bind:taphandle="searchFace" class="btn-form">
+        <view class='search-btn'>搜索</view>
+      </formid-custom>
+    </view> 
+    <view class='has-search' hidden='{{backFlag}}'>
+      <view class='has-input'>
+        <input type='text' value='{{searchFont}}' bindinput="changeSearch" class='search-input' placeholder-class="input-placeholder" maxlength="20"></input>
+        <formid-custom bind:taphandle="searchFace" class="hasbtn-form">
+          <view class='has-searchbtn'>搜索</view>
+        </formid-custom>
+      </view>
+      <view class='back-btn' bindtap='backStart'>
+        <image src='../../imgs/back.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='hot-area' hidden='{{showSearch}}'>
+      <view class='hot-title'>
+          <text>大家都在搜</text>
+          <view class='change-btn' bindtap='changeFont'>
+             <image src='../../imgs/change.png'></image>
+             <text>换一换</text>
+          </view>
+      </view>
+      <view class='font-area'>
+          <view class="{{item.IsHot==3?'font-jump':'font-item'}}" wx:for="{{hotSearch}}" wx:key="{{index}}" bindtap="{{item.IsHot==3?'gojump':'selectFont'}}" data-hotfont="{{item.Name}}">
+            <text wx:if="{{item.IsHot != 3}}" style='{{item.IsHot==1?"color:#fc5d6f":"color:#000000;max-width:162rpx"}}'>#{{item.Name}}</text>
+            <text class='more-xcx' wx:else style="color:#fc5d6f">更多神器</text>
+            <image wx:if="{{item.IsHot != 3}}" src="../../imgs/fontHot.png" hidden='{{item.IsHot==1 || item.IsHot==3?false:true}}'></image>
+            <image class='more-xcximg' wx:else src="../../imgs/hot.png"></image>
+          </view>
+      </view>
+  </view>
+  <view class='hot-face' hidden='{{showSearch}}'>
+     <view class='hotface-title'>
+        <image src="../../imgs/hot.png"></image>
+        <view class='hotface-font'>热门表情</view>
+     </view>
+     <view class='hotface-body'>
+        <view class="{{item.state == 1?'hot-jump':'hot-item'}}" wx:for="{{hotimgs}}" wx:key="index" wx:if="{{item.actionname != 'undefined' && !item.loadFlag}}">
+          <formid-custom bind:taphandle="{{item.state == 1?'gojump':'previewImg'}}" data-imgsrc="{{item.actionname}}">
+            <image src='{{item.actionname}}' mode='widthFix' binderror="hotError" data-indexnum="{{index}}"></image>
+          </formid-custom>
+        </view>   
+        <!-- <view class='img-item' wx:for="{{imgs}}" wx:key="index" hidden='{{item.loadFlag}}'>
+            <view class='image-box'>
+              <formid-custom bind:taphandle="previewImg" data-imgsrc="{{item.imgUrl}}">
+              <image hidden='{{item.loadFlag}}' src='{{item.loading?item.imgUrl:"../../imgs/load.gif"}}' mode='widthFix'  binderror="imageError" bindload='imageLoad' data-indexnum="{{index}}"></image>
+              <image hidden='{{!item.loadFlag}}' src='../../imgs/404.png' mode='widthFix' ></image>
+            </formid-custom>
+            </view>
+        </view> -->
+     </view>
+  </view>
+  <!--搜索到的图片 -->
+  <view class='search-imgs' hidden='{{!showSearch}}'>
+      <view class='img-head' hidden='{{imgs.length > 0?false:true}}'>
+          点击查看大图,可发送至聊天
+      </view>
+      <view class='img-body'  hidden='{{imgs.length > 0?false:true}}'>
+        <view class='img-item' wx:for="{{imgs}}" wx:key="index" hidden='{{item.loadFlag}}'>
+          <view class='image-box'>
+            <formid-custom class="{{item.jump == 1?'img-jump':''}}" bind:taphandle="{{item.jump == 1?'gojump':'previewImg'}}" data-imgsrc="{{item.imgUrl}}">
+            <image hidden='{{item.loadFlag}}' src='{{item.imgUrl}}' mode='widthFix'  binderror="imageError" bindload='imageLoad' data-indexnum="{{index}}"></image>
+            <image hidden='{{!item.loadFlag}}' src='../../imgs/404.png' mode='widthFix' ></image>
+          </formid-custom>
+          </view>
+          <view wx:if="{{item.jump == 1}}" class='jump-btn' bindtap='gojump'>定制表情</view>
+          <view wx:else class='send-btn' hidden='{{item.loadFlag}}'>发送
+            <button open-type='share' data-sharesrc='{{item.imgUrl}}'></button>
+          </view>
+          <view hidden='{{!item.loadFlag}}'>
+              图片已丢失
+          </view>
+        </view>
+    </view>
+    <!-- <view class='noimg-body' hidden='{{imgs.length <= 0?false:true}}'>
+    未查询到具有关键字的表情
+    </view>  -->
+  </view> 
+</view>
+<view class='share-btn' hidden='{{showSearch}}'>
+    跟好友一起斗图
+    <button open-type='share'></button>
+</view>
+<view class='teach-body' wx:if="{{teachFlag}}">
+    <image src='{{teachImg}}' mode='widthFix'></image>
+    <view class='teach-top'>
+        <view class='teach-img'>
+          <image src='../../imgs/teach.png'></image>
+        </view>
+        <view class='teach-font'>长按发送表情给好友</view>
+        <view class='know-btn' bindtap='hasKnow'>知道了</view>
+    </view>
+</view>

@@ -1,0 +1,12 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/jump/jump"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffb668",
+    "navigationBarTitleText": "表情搜搜神器",
+    "navigationBarTextStyle": "white"
+  }
+}
